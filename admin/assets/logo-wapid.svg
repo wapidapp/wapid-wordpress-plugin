@@ -1,0 +1,29 @@
+<svg width="1080" height="260" viewBox="0 0 1080 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wapid Logo">
+  <defs>
+    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#29D768"/>
+      <stop offset="100%" stop-color="#09695E"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C6FFE1"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="20" y="20" width="220" height="220" rx="62" fill="url(#brand)"/>
+
+  <g fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="64" y="64" width="132" height="110" rx="34"/>
+    <path d="M110 174l-26 24v-24"/>
+    <path d="M130 64v-16"/>
+    <circle cx="130" cy="42" r="6" fill="#FFFFFF" stroke="none"/>
+  </g>
+
+  <circle cx="106" cy="116" r="8" fill="#FFFFFF"/>
+  <circle cx="152" cy="116" r="8" fill="#FFFFFF"/>
+  <path d="M92 146c9 13 22 20 37 20s28-7 37-20" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+  <path d="M170 80l24 18-14 3 8 18-26-19 12-3z" fill="url(#bolt)"/>
+
+  <text x="280" y="138" font-family="Manrope, Arial, sans-serif" font-size="98" font-weight="800" fill="#0F172A">Wapid</text>
+  <text x="284" y="184" font-family="Manrope, Arial, sans-serif" font-size="28" font-weight="600" fill="#3A4A56">Wapid Automation</text>
+</svg>

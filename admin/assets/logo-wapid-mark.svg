@@ -1,0 +1,29 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wapid Messaging Automation Mark">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#29D768"/>
+      <stop offset="100%" stop-color="#09695E"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C6FFE1"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="28" y="28" width="456" height="456" rx="124" fill="url(#bg)"/>
+
+  <g fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="122" y="124" width="268" height="220" rx="74"/>
+    <path d="M224 344l-50 46v-46"/>
+    <path d="M256 124v-34"/>
+    <circle cx="256" cy="76" r="12" fill="#FFFFFF" stroke="none"/>
+  </g>
+
+  <circle cx="214" cy="226" r="16" fill="#FFFFFF"/>
+  <circle cx="298" cy="226" r="16" fill="#FFFFFF"/>
+  <path d="M190 278c16 24 40 36 66 36s50-12 66-36" fill="none" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+
+  <path d="M332 154l46 34-26 6 16 34-50-36 24-6z" fill="url(#bolt)"/>
+
+  <path d="M70 260h30M68 300h22M70 220h18" stroke="#CCFFE7" stroke-width="12" stroke-linecap="round"/>
+</svg>
