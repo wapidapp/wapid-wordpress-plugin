@@ -91,6 +91,7 @@ if ($local_page > $local_total_pages) {
 }
 $local_message_history = \WhatsAppAutomation\MessageHistory::latest_paginated($per_page, $local_offset);
 $local_logs = \WhatsAppAutomation\Logger::get_logs(30);
+$local_log_file = \WhatsAppAutomation\Logger::get_log_file_path();
 $logs_page_url = admin_url('admin.php?page=wapid-automation-for-woocommerce-logs');
 $backend_has_prev = ($backend_page > 1);
 $backend_has_next = false;
@@ -242,7 +243,6 @@ whatsapp_automation_admin_shell_start(
                         <th><?php esc_html_e('Event', 'wapid-automation-for-woocommerce'); ?></th>
                         <th><?php esc_html_e('To', 'wapid-automation-for-woocommerce'); ?></th>
                         <th><?php esc_html_e('Message', 'wapid-automation-for-woocommerce'); ?></th>
-                        <th><?php esc_html_e('Local', 'wapid-automation-for-woocommerce'); ?></th>
                         <th><?php esc_html_e('Backend', 'wapid-automation-for-woocommerce'); ?></th>
                         <th><?php esc_html_e('Backend ID', 'wapid-automation-for-woocommerce'); ?></th>
                         <th><?php esc_html_e('Error', 'wapid-automation-for-woocommerce'); ?></th>
@@ -263,7 +263,6 @@ whatsapp_automation_admin_shell_start(
                             <td><?php echo esc_html((string) ($row['event_type'] ?? '')); ?></td>
                             <td><?php echo esc_html((string) ($row['recipient_phone'] ?? '')); ?></td>
                             <td><?php echo esc_html(wp_trim_words((string) ($row['message_text'] ?? ''), 14)); ?></td>
-                            <td><?php echo esc_html((string) ($row['local_status'] ?? '')); ?></td>
                             <td><?php echo esc_html($resolved_backend_status); ?></td>
                             <td><?php echo esc_html($backend_id); ?></td>
                             <td><?php echo esc_html((string) ($row['error_message'] ?? '')); ?></td>
@@ -308,6 +307,12 @@ whatsapp_automation_admin_shell_start(
 
     <section class="wa-card">
         <h2><?php esc_html_e('Plugin Local Logs', 'wapid-automation-for-woocommerce'); ?></h2>
-        <pre class="wa-pre"><?php echo esc_html(implode('', $local_logs)); ?></pre>
+        <?php if (empty($local_logs)) : ?>
+            <p><?php esc_html_e('No plugin log lines yet. New entries appear when plugin events run (test send, WooCommerce automation, auth/actions).', 'wapid-automation-for-woocommerce'); ?></p>
+            <p><code><?php echo esc_html($local_log_file); ?></code></p>
+        <?php else : ?>
+            <pre class="wa-pre"><?php echo esc_html(implode('', $local_logs)); ?></pre>
+            <p><code><?php echo esc_html($local_log_file); ?></code></p>
+        <?php endif; ?>
     </section>
 <?php whatsapp_automation_admin_shell_end(); ?>

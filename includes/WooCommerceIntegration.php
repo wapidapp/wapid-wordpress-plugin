@@ -79,9 +79,14 @@ class WooCommerceIntegration {
 
         $message = $this->resolve_message($event_type, $variables);
         if ($message === '') {
+            whatsapp_automation_log('Skipped ' . $event_type . ' for order #' . $order->get_id() . ' because message resolved empty.', 'warn');
             return;
         }
 
+        whatsapp_automation_log(
+            'Queueing ' . $event_type . ' for order #' . $order->get_id() . ' to ' . $normalized_phone . ' via instance ' . $instance_id . '.',
+            'info'
+        );
         $history_id = MessageHistory::insert(array(
             'source' => 'woocommerce',
             'event_type' => $event_type,
@@ -116,6 +121,11 @@ class WooCommerceIntegration {
                 'response_payload' => $response,
             ));
         }
+
+        whatsapp_automation_log(
+            'Sent ' . $event_type . ' for order #' . $order->get_id() . ' with backend status ' . (($backend_status !== '') ? $backend_status : 'unknown') . '.',
+            'info'
+        );
 
         $order->update_meta_data('_whatsapp_message_id_' . $event_type, $message_id);
         $order->save();

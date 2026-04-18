@@ -12,11 +12,20 @@ class Logger {
     private static $log_dir = null;
 
     public static function init() {
-        self::$log_dir = wp_upload_dir()['basedir'] . '/wapid-automation-for-woocommerce-logs';
+        $upload_dir = wp_upload_dir();
+        self::$log_dir = rtrim((string) ($upload_dir['basedir'] ?? ''), '/\\') . '/wapid-automation-for-woocommerce-logs';
 
         if (!is_dir(self::$log_dir)) {
             wp_mkdir_p(self::$log_dir);
         }
+    }
+
+    public static function get_log_file_path() {
+        if (self::$log_dir === null) {
+            self::init();
+        }
+
+        return self::$log_dir . '/wapid-automation-for-woocommerce.log';
     }
 
     /**
@@ -27,10 +36,10 @@ class Logger {
             self::init();
         }
 
-        $timestamp = date('Y-m-d H:i:s');
+        $timestamp = current_time('mysql');
         $log_message = "[{$timestamp}] [{$level}] {$message}\n";
 
-        $log_file = self::$log_dir . '/wapid-automation-for-woocommerce.log';
+        $log_file = self::get_log_file_path();
 
         // Append to log file
         error_log($log_message, 3, $log_file);
@@ -49,7 +58,7 @@ class Logger {
             self::init();
         }
 
-        $log_file = self::$log_dir . '/wapid-automation-for-woocommerce.log';
+        $log_file = self::get_log_file_path();
 
         if (!file_exists($log_file)) {
             return array();
@@ -67,7 +76,7 @@ class Logger {
             self::init();
         }
 
-        $log_file = self::$log_dir . '/wapid-automation-for-woocommerce.log';
+        $log_file = self::get_log_file_path();
 
         if (file_exists($log_file)) {
             unlink($log_file);

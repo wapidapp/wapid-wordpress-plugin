@@ -1,0 +1,77 @@
+#toplevel_page_wapid-automation-for-woocommerce .wp-submenu,
+#toplevel_page_wapid-automation-for-woocommerce.wp-has-current-submenu .wp-submenu {
+  display: none !important;
+}
+
+#toplevel_page_wapid-automation-for-woocommerce .wp-menu-arrow {
+  display: none !important;
+}
+
+#adminmenu #toplevel_page_wapid-automation-for-woocommerce .wp-menu-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  margin: 6px 0;
+}
+
+#adminmenu #toplevel_page_wapid-automation-for-woocommerce .wp-menu-image img {
+  width: 20px !important;
+  height: 20px !important;
+  max-width: 20px !important;
+  max-height: 20px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18) !important;
+  padding: 3px !important;
+  opacity: 1 !important;
+}
+
+#adminmenu #toplevel_page_wapid-automation-for-woocommerce.current > a.menu-top,
+#adminmenu #toplevel_page_wapid-automation-for-woocommerce.wp-has-current-submenu > a.menu-top {
+  background: linear-gradient(135deg, #0b7e75, #0bb39f) !important;
+  color: #fff !important;
+}
+
+#adminmenu #toplevel_page_wapid-automation-for-woocommerce.current > a.menu-top .wp-menu-name,
+#adminmenu #toplevel_page_wapid-automation-for-woocommerce.wp-has-current-submenu > a.menu-top .wp-menu-name {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+#wpadminbar .wapid-automation-adminbar-node > .ab-item,
+#wpadminbar .wapid-automation-adminbar-node:hover > .ab-item {
+  background: transparent !important;
+}
+
+#wpadminbar .wa-adminbar-brand {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
+#wpadminbar .wa-adminbar-brand__badge {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+}
+
+#wpadminbar .wa-adminbar-brand__badge img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
+
+#wpadminbar .wa-adminbar-brand__text {
+  color: #ffffff;
+  font-weight: 700;
+}

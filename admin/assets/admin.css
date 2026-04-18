@@ -780,37 +780,3 @@
   }
 }
 
-/* Admin menu styles */
-#toplevel_page_wapid-automation-for-woocommerce .wp-submenu,
-#toplevel_page_wapid-automation-for-woocommerce.wp-has-current-submenu .wp-submenu {
-  display: none !important;
-}
-#toplevel_page_wapid-automation-for-woocommerce .wp-menu-arrow {
-  display: none !important;
-}
-#adminmenu #toplevel_page_wapid-automation-for-woocommerce .wp-menu-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 34px;
-}
-#adminmenu #toplevel_page_wapid-automation-for-woocommerce .wp-menu-image img {
-  width: 22px !important;
-  height: 22px !important;
-  padding: 1px !important;
-  margin-top: 2px !important;
-  background: #ffffff !important;
-  border-radius: 6px !important;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) !important;
-  opacity: 1 !important;
-}
-#adminmenu #toplevel_page_wapid-automation-for-woocommerce.current > a.menu-top,
-#adminmenu #toplevel_page_wapid-automation-for-woocommerce.wp-has-current-submenu > a.menu-top {
-  background: linear-gradient(135deg, #0b7e75, #0bb39f) !important;
-  color: #fff !important;
-}
-#adminmenu #toplevel_page_wapid-automation-for-woocommerce.current > a.menu-top .wp-menu-name,
-#adminmenu #toplevel_page_wapid-automation-for-woocommerce.wp-has-current-submenu > a.menu-top .wp-menu-name {
-  color: #fff !important;
-  font-weight: 600;
-}

@@ -6,6 +6,7 @@ class AdminMenu {
     public function __construct() {
         add_action('admin_menu', array($this, 'add_menu_pages'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_assets'));
+        add_action('admin_bar_menu', array($this, 'add_admin_bar_brand'), 6);
         add_action('admin_head', array($this, 'hide_wordpress_submenu'));
         add_action('admin_head', array($this, 'inject_plugin_favicon'));
         add_action('admin_init', array($this, 'maybe_handle_connect_flow'));
@@ -102,6 +103,13 @@ class AdminMenu {
     }
 
     public function enqueue_assets($hook) {
+        wp_enqueue_style(
+            'wapid-automation-for-woocommerce-admin-menu',
+            WHATSAPP_AUTOMATION_PLUGIN_URL . 'admin/assets/admin-menu.css',
+            array(),
+            WHATSAPP_AUTOMATION_VERSION
+        );
+
         if (strpos((string) $hook, 'wapid-automation-for-woocommerce') === false) {
             return;
         }
@@ -112,6 +120,28 @@ class AdminMenu {
             array(),
             WHATSAPP_AUTOMATION_VERSION
         );
+    }
+
+    public function add_admin_bar_brand($wp_admin_bar) {
+        if (!is_admin() || !is_admin_bar_showing() || !current_user_can('manage_options')) {
+            return;
+        }
+
+        $icon = esc_url(WHATSAPP_AUTOMATION_PLUGIN_URL . 'admin/assets/logo-wapid-mark.svg');
+        $title = '<span class="ab-item wa-adminbar-brand">'
+            . '<span class="wa-adminbar-brand__badge"><img src="' . $icon . '" alt="" /></span>'
+            . '<span class="wa-adminbar-brand__text">Wapid</span>'
+            . '</span>';
+
+        $wp_admin_bar->add_node(array(
+            'id' => 'wapid-automation-brand',
+            'title' => $title,
+            'href' => admin_url('admin.php?page=wapid-automation-for-woocommerce'),
+            'meta' => array(
+                'title' => __('Open Wapid Dashboard', 'wapid-automation-for-woocommerce'),
+                'class' => 'wapid-automation-adminbar-node',
+            ),
+        ));
     }
 
     public function render_dashboard() {
@@ -329,21 +359,25 @@ class AdminMenu {
         $this->guard('whatsapp_automation_send_test');
         $instance_id = get_option('whatsapp_automation_instance_id', '');
         if (empty($instance_id)) {
+            whatsapp_automation_log('Manual test aborted: no instance selected.', 'warn');
             $this->redirect_notice('error', __('Please select an instance first.', 'wapid-automation-for-woocommerce'), 'wapid-automation-for-woocommerce-logs');
         }
 
         $client = new APIClient();
         $resolved_instance_id = $client->resolve_sendable_instance_id($instance_id);
         if (is_wp_error($resolved_instance_id)) {
+            whatsapp_automation_log('Manual test failed while resolving instance: ' . $resolved_instance_id->get_error_message(), 'error');
             $this->redirect_notice('error', $resolved_instance_id->get_error_message(), 'wapid-automation-for-woocommerce-logs');
         }
         if ($resolved_instance_id !== $instance_id) {
             update_option('whatsapp_automation_instance_id', $resolved_instance_id);
+            whatsapp_automation_log('Manual test auto-switched instance from ' . $instance_id . ' to ' . $resolved_instance_id . '.', 'warn');
             $instance_id = $resolved_instance_id;
         }
 
         $phone = sanitize_text_field(wp_unslash($_POST['phone'] ?? ''));
         $message = sanitize_textarea_field(wp_unslash($_POST['message'] ?? 'Test message'));
+        whatsapp_automation_log('Manual test queued for ' . preg_replace('/\D+/', '', $phone) . ' via instance ' . $instance_id . '.', 'info');
         $history_id = MessageHistory::insert(array(
             'source' => 'manual_test',
             'event_type' => 'manual_test',
@@ -366,11 +400,12 @@ class AdminMenu {
                     'error_message' => $response->get_error_message(),
                 ));
             }
+            whatsapp_automation_log('Manual test failed: ' . $response->get_error_message(), 'error');
             $this->redirect_notice('error', $response->get_error_message(), 'wapid-automation-for-woocommerce-logs');
         }
 
+        $backend_status = (string) ($response['data']['status'] ?? '');
         if ($history_id > 0) {
-            $backend_status = $response['data']['status'] ?? '';
             MessageHistory::update($history_id, array(
                 'backend_message_id' => $response['data']['id'] ?? '',
                 'backend_status' => $backend_status,
@@ -378,6 +413,11 @@ class AdminMenu {
                 'response_payload' => $response,
             ));
         }
+
+        whatsapp_automation_log(
+            'Manual test sent for ' . preg_replace('/\D+/', '', $phone) . ' with backend status ' . (($backend_status !== '') ? $backend_status : 'unknown') . '.',
+            'info'
+        );
 
         $this->redirect_notice('success', __('Test message queued/sent successfully.', 'wapid-automation-for-woocommerce'), 'wapid-automation-for-woocommerce-logs');
     }
