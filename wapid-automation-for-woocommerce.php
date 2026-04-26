@@ -32,6 +32,9 @@ require_once WHATSAPP_AUTOMATION_PLUGIN_DIR . 'includes/WooCommerceIntegration.p
 require_once WHATSAPP_AUTOMATION_PLUGIN_DIR . 'includes/OTPIntegration.php';
 require_once WHATSAPP_AUTOMATION_PLUGIN_DIR . 'includes/Activator.php';
 require_once WHATSAPP_AUTOMATION_PLUGIN_DIR . 'includes/Deactivator.php';
+require_once WHATSAPP_AUTOMATION_PLUGIN_DIR . 'modules/email-marketing/models/FeatureGate.php';
+require_once WHATSAPP_AUTOMATION_PLUGIN_DIR . 'modules/email-marketing/services/EmailMarketingService.php';
+require_once WHATSAPP_AUTOMATION_PLUGIN_DIR . 'modules/email-marketing/controllers/EmailMarketingController.php';
 
 function whatsapp_automation_activate() {
     \WhatsAppAutomation\Activator::activate();

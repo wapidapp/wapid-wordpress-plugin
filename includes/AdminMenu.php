@@ -75,6 +75,15 @@ class AdminMenu {
 
         add_submenu_page(
             null,
+            __('Email Marketing', 'wapid-automation-for-woocommerce'),
+            __('Email Marketing', 'wapid-automation-for-woocommerce'),
+            'manage_options',
+            'wapid-automation-for-woocommerce-email-marketing',
+            array($this, 'render_email_marketing')
+        );
+
+        add_submenu_page(
+            null,
             __('Logs', 'wapid-automation-for-woocommerce'),
             __('Logs', 'wapid-automation-for-woocommerce'),
             'manage_options',
@@ -163,6 +172,11 @@ class AdminMenu {
 
     public function render_logs() {
         require_once WHATSAPP_AUTOMATION_PLUGIN_DIR . 'admin/logs.php';
+    }
+
+    public function render_email_marketing() {
+        $controller = new \WhatsAppAutomation\Modules\EmailMarketing\Controllers\EmailMarketingController();
+        $controller->render();
     }
 
     public function render_notices() {

@@ -247,6 +247,26 @@ class APIClient {
         return $this->request('GET', '/templates');
     }
 
+    public function get_email_feature_status() {
+        return $this->request('GET', '/email-marketing/feature-status');
+    }
+
+    public function get_email_contacts($limit = 50, $offset = 0) {
+        $query = array(
+            'limit' => (int) $limit,
+            'offset' => (int) $offset,
+        );
+        return $this->request('GET', '/email-marketing/contacts?' . http_build_query($query));
+    }
+
+    public function get_email_templates() {
+        return $this->request('GET', '/email-marketing/templates');
+    }
+
+    public function get_email_campaigns() {
+        return $this->request('GET', '/email-marketing/campaigns');
+    }
+
     public function create_template($name, $category, $content) {
         return $this->request('POST', '/templates', array(
             'name' => sanitize_text_field($name),

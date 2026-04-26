@@ -14,6 +14,7 @@ function whatsapp_automation_admin_shell_start($title, $subtitle = '') {
         ),
         'ENGAGEMENT' => array(
             array('slug' => 'wapid-automation-for-woocommerce-settings', 'label' => __('Automated Notifications', 'wapid-automation-for-woocommerce')),
+            array('slug' => 'wapid-automation-for-woocommerce-email-marketing', 'label' => __('Email Marketing', 'wapid-automation-for-woocommerce')),
         ),
         'OTHER' => array(
             array('slug' => 'wapid-automation-for-woocommerce-logs', 'label' => __('Logs', 'wapid-automation-for-woocommerce')),
